@@ -1962,59 +1962,114 @@ section:first-of-type::before {
     align-items: center;
 }
 
-.booking-card {
+.booking-card-horizontal {
     background: var(--white);
     border-radius: 25px;
-    padding: var(--spacing-xl);
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
-    transition: box-shadow 0.4s ease;
+    transition: all 0.4s ease;
+    display: flex;
+    overflow: hidden;
+    position: relative;
 }
 
-.booking-card:hover {
-    box-shadow: 0 20px 60px rgba(181, 97, 57, 0.2);
+.booking-card-horizontal:hover {
+    box-shadow: 0 20px 60px rgba(181, 97, 57, 0.25);
+    transform: translateY(-5px);
 }
 
-.booking-card-header {
+.booking-card-sidebar {
+    width: 8px;
+    background: var(--gradient-1);
+    flex-shrink: 0;
+    transition: width 0.4s ease;
+}
+
+.booking-card-horizontal:hover .booking-card-sidebar {
+    width: 12px;
+}
+
+.booking-card-body {
+    flex: 1;
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.booking-card-main {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
-    border-bottom: 2px solid var(--light-color);
 }
 
-.booking-card-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    border-radius: 15px;
+.booking-card-icon-horizontal {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(181, 97, 57, 0.1) 0%, rgba(86, 70, 59, 0.1) 100%);
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--primary-color);
     flex-shrink: 0;
+    transition: all 0.4s ease;
 }
 
-.booking-card-header h3 {
+.booking-card-horizontal:hover .booking-card-icon-horizontal {
+    background: var(--gradient-1);
+    color: var(--white);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.booking-card-info {
+    flex: 1;
+}
+
+.booking-card-info h3 {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
     color: var(--dark-color);
     margin-bottom: var(--spacing-xs);
     font-weight: 600;
+    line-height: 1.2;
 }
 
-.booking-card-header p {
+.booking-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.booking-card-duration {
+    font-size: 1rem;
     color: var(--text-light);
-    font-size: 0.95rem;
-    margin: 0;
+    font-weight: 500;
 }
 
-.booking-card-content {
+.booking-card-separator {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.booking-card-free {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(181, 97, 57, 0.1) 0%, rgba(86, 70, 59, 0.1) 100%);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.booking-card-description {
     color: var(--text-light);
     line-height: 1.7;
     font-size: 1rem;
+    margin-top: var(--spacing-xs);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--light-color);
 }
 
 @media (max-width: 968px) {
@@ -2025,6 +2080,49 @@ section:first-of-type::before {
     
     .booking-text {
         padding-right: 0;
+        text-align: center;
+    }
+    
+    .booking-card-horizontal {
+        max-width: 100%;
+    }
+    
+    .booking-card-body {
+        padding: var(--spacing-lg);
+    }
+    
+    .booking-card-icon-horizontal {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-card-horizontal {
+        flex-direction: column;
+    }
+    
+    .booking-card-sidebar {
+        width: 100%;
+        height: 6px;
+    }
+    
+    .booking-card-horizontal:hover .booking-card-sidebar {
+        width: 100%;
+        height: 8px;
+    }
+    
+    .booking-card-main {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .booking-card-meta {
+        justify-content: center;
+    }
+    
+    .booking-card-description {
         text-align: center;
     }
     
