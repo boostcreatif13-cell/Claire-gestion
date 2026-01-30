@@ -775,6 +775,78 @@ if ('IntersectionObserver' in window) {
 }
 
 // ============================================
+// COOKIE CONSENT POPUP
+// ============================================
+
+function initCookieConsent() {
+    const popup = document.getElementById('cookieConsentPopup');
+    const acceptBtn = document.getElementById('cookieAcceptBtn');
+    const refuseBtn = document.getElementById('cookieRefuseBtn');
+    const policyLink = document.getElementById('cookiePolicyLink');
+    
+    if (!popup) return;
+    
+    // Vérifier si le consentement a déjà été donné
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    
+    if (!cookieConsent) {
+        // Afficher le popup après un court délai pour une meilleure UX
+        setTimeout(() => {
+            popup.classList.add('active');
+        }, 1000);
+    }
+    
+    // Gérer l'acceptation
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            popup.classList.remove('active');
+            
+            // Ici vous pouvez initialiser les cookies/trackers si nécessaire
+            // initAnalytics();
+        });
+    }
+    
+    // Gérer le refus
+    if (refuseBtn) {
+        refuseBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'refused');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            popup.classList.remove('active');
+            
+            // Ne pas initialiser les cookies/trackers
+        });
+    }
+    
+    // Lien vers la politique de cookies (à mettre à jour demain avec la vraie page)
+    if (policyLink) {
+        policyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Pour l'instant, on ferme le popup
+            // Demain, rediriger vers la page politique de cookies
+            popup.classList.remove('active');
+            // window.location.href = 'politique-cookies.html';
+        });
+    }
+    
+    // Fermer en cliquant sur l'overlay
+    const overlay = popup.querySelector('.cookie-popup-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            // Ne pas fermer automatiquement, forcer un choix
+            // popup.classList.remove('active');
+        });
+    }
+}
+
+// Fonction pour réinitialiser le consentement (utile pour les tests)
+function resetCookieConsent() {
+    localStorage.removeItem('cookieConsent');
+    localStorage.removeItem('cookieConsentDate');
+}
+
+// ============================================
 // INITIALISATION
 // ============================================
 
@@ -797,6 +869,12 @@ document.addEventListener('DOMContentLoaded', () => {
         initFloatingCTA();
     } catch (e) {
         console.log('Floating CTA non initialisé');
+    }
+    
+    try {
+        initCookieConsent();
+    } catch (e) {
+        console.log('Cookie consent non initialisé');
     }
 });
 

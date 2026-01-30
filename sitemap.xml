@@ -44,12 +44,4 @@
         <priority>0.7</priority>
     </url>
     
-    <!-- Page Partenariat -->
-    <url>
-        <loc>https://www.clairestehlin.com/partenariat.html</loc>
-        <lastmod>2026-01-28</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    
 </urlset>
